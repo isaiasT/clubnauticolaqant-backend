@@ -38,7 +38,9 @@ module.exports = {
                 references: { model: 'Pais', key: 'id' }
             },
             permisos: {
-                type: Sequelize.TINYINT
+                type: Sequelize.INTEGER,
+                foreignKey: true,
+                references: { model: 'Permisos', key: 'id' }
             },
             createdAt: {
                 allowNull: false,

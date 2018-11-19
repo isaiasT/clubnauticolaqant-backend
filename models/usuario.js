@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         apellidos: DataTypes.STRING(100),
         nif_cif: DataTypes.STRING(100),
         cod_postal: DataTypes.MEDIUMINT,
-        localidad: DataTypes.STRING(50),
-        permisos: DataTypes.TINYINT
+        localidad: DataTypes.STRING(50)
     }, {});
     Usuario.associate = function(models) {
         // associations can be defined here
         Usuario.belongsTo(models.Pais, { foreignKey: 'pais' });
+        Usuario.belongsTo(models.Permisos, { foreignKey: 'permisos' });
     };
     return Usuario;
 };
