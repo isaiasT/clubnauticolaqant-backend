@@ -15,4 +15,39 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        usuario,
+        password,
+        email,
+        nombre,
+        apellidos,
+        nif_cif,
+        cod_postal,
+        localidad,
+        pais,
+        permisos
+    } = req.body;
+    model.Usuario.create({
+            usuario: usuario,
+            password: password,
+            email: email,
+            nombre: nombre,
+            apellidos: apellidos,
+            nif_cif: nif_cif,
+            cod_postal: cod_postal,
+            localidad: localidad,
+            pais: pais,
+            permisos: permisos
+        }).then(usuario => res.status(201).json({
+            error: false,
+            data: usuario,
+            message: 'Usuario creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

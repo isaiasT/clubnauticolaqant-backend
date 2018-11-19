@@ -15,4 +15,25 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        mensaje,
+        emisor,
+        receptor
+    } = req.body;
+    model.Mensaje.create({
+            mensaje: mensaje,
+            emisor: emisor,
+            receptor: receptor
+        }).then(mensaje => res.status(201).json({
+            error: false,
+            data: mensaje,
+            message: 'Mensaje creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

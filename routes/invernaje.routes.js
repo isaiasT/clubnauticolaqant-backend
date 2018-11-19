@@ -15,4 +15,23 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        precio,
+        tipo
+    } = req.body;
+    model.Invernaje.create({
+            precio: precio,
+            tipo: tipo
+        }).then(invernaje => res.status(201).json({
+            error: false,
+            data: invernaje,
+            message: 'Invernaje creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

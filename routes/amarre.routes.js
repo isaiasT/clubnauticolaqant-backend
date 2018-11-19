@@ -15,4 +15,23 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        precio,
+        tipo
+    } = req.body;
+    model.Amarre.create({
+            precio: precio,
+            tipo: tipo
+        }).then(amarre => res.status(201).json({
+            error: false,
+            data: amarre,
+            message: 'Amarre creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

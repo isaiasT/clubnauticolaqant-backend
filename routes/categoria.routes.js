@@ -4,15 +4,33 @@ var model = require('../models/index');
 var api = require('../api_key');
 
 router.get('/', api, function(req, res) {
-    model.Categoria.findAll()
-        .then(categorias => res.json(categorias))
+    model.Amarre.findAll()
+        .then(amarres => res.json(amarres))
         .catch(error => res.json(error));
 });
 
 router.get('/:id', api, function(req, res) {
-    model.Categoria.findByPk(req.params.id)
-        .then(categoria => res.json(categoria))
+    model.Amarre.findByPk(req.params.id)
+        .then(amarre => res.json(amarre))
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        nombre
+    } = req.body;
+    model.Categoria.create({
+            nombre: nombre
+        }).then(categoria => res.status(201).json({
+            error: false,
+            data: categoria,
+            message: 'Categoria creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+module.exports = router;
 module.exports = router;

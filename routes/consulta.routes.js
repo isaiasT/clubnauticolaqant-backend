@@ -15,4 +15,27 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        consulta,
+        respuesta,
+        respondida,
+        usuario
+    } = req.body;
+    model.Consulta.create({
+            consulta: consulta,
+            respuesta: respuesta,
+            respondida: respondida,
+            usuario: usuario
+        }).then(consulta => res.status(201).json({
+            error: false,
+            data: consulta,
+            message: 'Consulta creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

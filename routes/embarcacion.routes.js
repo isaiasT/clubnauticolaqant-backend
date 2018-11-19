@@ -15,4 +15,31 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        nombre,
+        descripcion,
+        ruta_imagen,
+        creador,
+        categoria,
+        marca
+    } = req.body;
+    model.Embarcacion.create({
+            nombre: nombre,
+            descripcion: descripcion,
+            ruta_imagen: ruta_imagen,
+            creador: creador,
+            categoria: categoria,
+            marca: marca
+        }).then(embarcacion => res.status(201).json({
+            error: false,
+            data: embarcacion,
+            message: 'Embarcacion creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

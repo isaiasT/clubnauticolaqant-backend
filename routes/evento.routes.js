@@ -15,4 +15,29 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        nombre,
+        lugar,
+        descripcion,
+        url,
+        ruta_imagen
+    } = req.body;
+    model.Evento.create({
+            nombre: nombre,
+            lugar: lugar,
+            descripcion: descripcion,
+            url: url,
+            ruta_imagen: ruta_imagen
+        }).then(evento => res.status(201).json({
+            error: false,
+            data: evento,
+            message: 'Evento creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

@@ -15,4 +15,21 @@ router.get('/:id', api, function(req, res) {
         .catch(error => res.json(error));
 });
 
+router.post('/', api, function(req, res) {
+    const {
+        nombre
+    } = req.body;
+    model.Pais.create({
+            nombre: nombre
+        }).then(pais => res.status(201).json({
+            error: false,
+            data: pais,
+            message: 'Pais creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;
