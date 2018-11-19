@@ -70,4 +70,23 @@ router.put('/:id', function(req, res) {
         }));
 });
 
+
+router.delete('/:id', function(req, res) {
+    const id = req.params.id;
+
+    model.Alquiler_amarre.destroy({
+            where: {
+                id: id
+            }
+        })
+        .then(status => res.json({
+            error: false,
+            message: 'Alquiler_amarre borrado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

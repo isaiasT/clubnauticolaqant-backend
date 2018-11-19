@@ -94,4 +94,22 @@ router.put('/:id', function(req, res) {
         }));
 });
 
+router.delete('/:id', function(req, res) {
+    const id = req.params.id;
+
+    model.Usuario.destroy({
+            where: {
+                id: id
+            }
+        })
+        .then(status => res.json({
+            error: false,
+            message: 'Usuario borrado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;
