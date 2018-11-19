@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         nif_cif: DataTypes.STRING(100),
         cod_postal: DataTypes.MEDIUMINT,
         localidad: DataTypes.STRING(50)
-    }, {});
+    }, { tableName: 'Usuario' });
     Usuario.associate = function(models) {
         // associations can be defined here
         Usuario.belongsTo(models.Pais, { foreignKey: 'pais' });

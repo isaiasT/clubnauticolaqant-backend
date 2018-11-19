@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         consulta: DataTypes.TEXT,
         respuesta: DataTypes.TEXT,
         respondida: DataTypes.BOOLEAN
-    }, {});
+    }, { tableName: 'Consulta' });
     Consulta.associate = function(models) {
         Consulta.belongsTo(models.Usuario, { foreignKey: 'usuario' });
     };
