@@ -19,12 +19,38 @@ router.post('/', api, function(req, res) {
     const {
         nombre
     } = req.body;
+
     model.Marca.create({
             nombre: nombre
         }).then(marca => res.status(201).json({
             error: false,
             data: marca,
             message: 'Marca creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        nombre
+    } = req.body;
+
+    model.Marca.update({
+            nombre: nombre
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(marca => res.json({
+            error: false,
+            message: 'Marca actualizada.'
         }))
         .catch(error => res.json({
             error: true,

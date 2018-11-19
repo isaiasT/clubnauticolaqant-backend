@@ -20,6 +20,7 @@ router.post('/', api, function(req, res) {
         precio,
         tipo
     } = req.body;
+
     model.Invernaje.create({
             precio: precio,
             tipo: tipo
@@ -27,6 +28,33 @@ router.post('/', api, function(req, res) {
             error: false,
             data: invernaje,
             message: 'Invernaje creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        precio,
+        tipo
+    } = req.body;
+
+    model.Invernaje.update({
+            precio: precio,
+            tipo: tipo
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(invernaje => res.json({
+            error: false,
+            message: 'Invernaje actualizado.'
         }))
         .catch(error => res.json({
             error: true,

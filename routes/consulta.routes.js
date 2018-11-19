@@ -22,6 +22,7 @@ router.post('/', api, function(req, res) {
         respondida,
         usuario
     } = req.body;
+
     model.Consulta.create({
             consulta: consulta,
             respuesta: respuesta,
@@ -31,6 +32,37 @@ router.post('/', api, function(req, res) {
             error: false,
             data: consulta,
             message: 'Consulta creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        consulta,
+        respuesta,
+        respondida,
+        usuario
+    } = req.body;
+
+    model.Consulta.update({
+            consulta: consulta,
+            respuesta: respuesta,
+            respondida: respondida,
+            usuario: usuario
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(consulta => res.json({
+            error: false,
+            message: 'Consulta actualizada.'
         }))
         .catch(error => res.json({
             error: true,

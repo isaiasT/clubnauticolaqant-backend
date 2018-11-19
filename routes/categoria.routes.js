@@ -19,6 +19,7 @@ router.post('/', api, function(req, res) {
     const {
         nombre
     } = req.body;
+
     model.Categoria.create({
             nombre: nombre
         }).then(categoria => res.status(201).json({
@@ -32,5 +33,29 @@ router.post('/', api, function(req, res) {
         }));
 });
 
-module.exports = router;
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        nombre
+    } = req.body;
+
+    model.Categoria.update({
+            nombre: nombre
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(categoria => res.json({
+            error: false,
+            message: 'Categoria actualizada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
 module.exports = router;

@@ -22,6 +22,7 @@ router.post('/', api, function(req, res) {
         amarre,
         usuario
     } = req.body;
+
     model.Alquiler_amarre.create({
             fecha_inicio: fecha_inicio,
             fecha_fin: fecha_fin,
@@ -31,6 +32,37 @@ router.post('/', api, function(req, res) {
             error: false,
             data: alquiler,
             message: 'Alquiler_amarre creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        fecha_inicio,
+        fecha_fin,
+        amarre,
+        usuario
+    } = req.body;
+
+    model.Alquiler_amarre.update({
+            fecha_inicio: fecha_inicio,
+            fecha_fin: fecha_fin,
+            amarre: amarre,
+            usuario: usuario
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(alquiler => res.json({
+            error: false,
+            message: 'Alquiler_amarre actualizado.'
         }))
         .catch(error => res.json({
             error: true,

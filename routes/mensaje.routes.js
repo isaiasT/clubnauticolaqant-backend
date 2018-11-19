@@ -21,6 +21,7 @@ router.post('/', api, function(req, res) {
         emisor,
         receptor
     } = req.body;
+
     model.Mensaje.create({
             mensaje: mensaje,
             emisor: emisor,
@@ -29,6 +30,35 @@ router.post('/', api, function(req, res) {
             error: false,
             data: mensaje,
             message: 'Mensaje creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        mensaje,
+        emisor,
+        receptor
+    } = req.body;
+
+    model.Mensaje.update({
+            mensaje: mensaje,
+            emisor: emisor,
+            receptor: receptor
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(mensaje => res.json({
+            error: false,
+            message: 'Mensaje actualizado.'
         }))
         .catch(error => res.json({
             error: true,

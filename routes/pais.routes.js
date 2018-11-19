@@ -19,12 +19,38 @@ router.post('/', api, function(req, res) {
     const {
         nombre
     } = req.body;
+
     model.Pais.create({
             nombre: nombre
         }).then(pais => res.status(201).json({
             error: false,
             data: pais,
             message: 'Pais creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        nombre
+    } = req.body;
+
+    model.Pais.update({
+            nombre: nombre
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(pais => res.json({
+            error: false,
+            message: 'Pais actualizado.'
         }))
         .catch(error => res.json({
             error: true,

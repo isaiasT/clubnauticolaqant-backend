@@ -24,6 +24,7 @@ router.post('/', api, function(req, res) {
         categoria,
         marca
     } = req.body;
+
     model.Embarcacion.create({
             nombre: nombre,
             descripcion: descripcion,
@@ -35,6 +36,41 @@ router.post('/', api, function(req, res) {
             error: false,
             data: embarcacion,
             message: 'Embarcacion creada.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        nombre,
+        descripcion,
+        ruta_imagen,
+        creador,
+        categoria,
+        marca
+    } = req.body;
+
+    model.Embarcacion.update({
+            nombre: nombre,
+            descripcion: descripcion,
+            ruta_imagen: ruta_imagen,
+            creador: creador,
+            categoria: categoria,
+            marca: marca
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(embarcacion => res.json({
+            error: false,
+            message: 'Embarcacion actualizada.'
         }))
         .catch(error => res.json({
             error: true,

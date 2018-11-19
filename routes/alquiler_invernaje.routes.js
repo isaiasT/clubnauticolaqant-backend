@@ -22,6 +22,7 @@ router.post('/', api, function(req, res) {
         invernaje,
         usuario
     } = req.body;
+
     model.Alquiler_invernaje.create({
             fecha_inicio: fecha_inicio,
             fecha_fin: fecha_fin,
@@ -31,6 +32,37 @@ router.post('/', api, function(req, res) {
             error: false,
             data: alquiler,
             message: 'Alquiler_invernaje creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        fecha_inicio,
+        fecha_fin,
+        invernaje,
+        usuario
+    } = req.body;
+
+    model.Alquiler_invernaje.update({
+            fecha_inicio: fecha_inicio,
+            fecha_fin: fecha_fin,
+            invernaje: invernaje,
+            usuario: usuario
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(alquiler => res.json({
+            error: false,
+            message: 'Alquiler_invernaje actualizado.'
         }))
         .catch(error => res.json({
             error: true,

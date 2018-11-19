@@ -28,6 +28,7 @@ router.post('/', api, function(req, res) {
         pais,
         permisos
     } = req.body;
+
     model.Usuario.create({
             usuario: usuario,
             password: password,
@@ -43,6 +44,49 @@ router.post('/', api, function(req, res) {
             error: false,
             data: usuario,
             message: 'Usuario creado.'
+        }))
+        .catch(error => res.json({
+            error: true,
+            error: error
+        }));
+});
+
+router.put('/:id', function(req, res) {
+
+    const id = req.params.id;
+
+    const {
+        usuario,
+        password,
+        email,
+        nombre,
+        apellidos,
+        nif_cif,
+        cod_postal,
+        localidad,
+        pais,
+        permisos
+    } = req.body;
+
+    model.Usuario.update({
+            usuario: usuario,
+            password: password,
+            email: email,
+            nombre: nombre,
+            apellidos: apellidos,
+            nif_cif: nif_cif,
+            cod_postal: cod_postal,
+            localidad: localidad,
+            pais: pais,
+            permisos: permisos
+        }, {
+            where: {
+                id: id
+            }
+        })
+        .then(usuario => res.json({
+            error: false,
+            message: 'Usuario actualizado.'
         }))
         .catch(error => res.json({
             error: true,
